@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="SliderActivity" default="default.build">
+<project name="AndroidSlide" default="default.build">
 
-    <property environment="env" />
-    <condition property="sdk.dir" value="${env.ANDROID_HOME}">
-        <isset property="env.ANDROID_HOME" />
-    </condition>
+	<property environment="env" />
+	<condition property="sdk.dir" value="${env.ANDROID_HOME}">
+		<isset property="env.ANDROID_HOME" />
+	</condition>
 
-    <loadproperties srcFile="project.properties" />
+	<loadproperties srcFile="project.properties" />
 
-    <fail
-            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project' or to inject it through the ANDROID_HOME environment variable."
-            unless="sdk.dir"
-    />
+	<fail
+		message="sdk.dir is missing. Make sure to generate local.properties using 'android update project' or to inject it through the ANDROID_HOME environment variable."
+		unless="sdk.dir"
+	/>
 
-    <import file="${sdk.dir}/tools/ant/build.xml" />
+	<import file="${sdk.dir}/tools/ant/build.xml" />
 
-    <target name="resolve.dependencies">
+	<target name="resolve.dependencies">
 		
-        <mkdir dir="libs"/>
+		<mkdir dir="libs"/>
         
-        <path id="check.class.path">
+		<path id="check.class.path">
 			<fileset dir="libs">
 				<filename name="**/*.jar"/>
 			</fileset>
 		</path>
 		
-        <available property="support.v4.installed" classpathref="check.class.path" classname="android.support.v4.app.FragmentActivity" />
+		<available property="support.v4.installed" classpathref="check.class.path" classname="android.support.v4.app.FragmentActivity" />
         
 		<if condition="support.v4.installed">
 			<then>
 			</then>
-  			<else>
-    			<copy file="${sdk.dir}/extras/android/support/v4/android-support-v4.jar" todir="libs" />	
-  			</else>
+			<else>
+				<copy file="${sdk.dir}/extras/android/support/v4/android-support-v4.jar" todir="libs" />	
+			</else>
 		</if>
 		
         
-    </target>
+	</target>
     
-    <target name="default.build" depends="resolve.dependencies" >
+	<target name="default.build" depends="resolve.dependencies" >
 	
 		<antcall target="debug" />
 		
